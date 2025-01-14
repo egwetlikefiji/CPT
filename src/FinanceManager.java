@@ -4,7 +4,7 @@ public class FinanceManager {
     
 }
 
-//transaction class, adding the attributes
+//transaction class, adding the attributes to one
 class Transaction {
     protected double amount;
     protected String name;
@@ -21,6 +21,7 @@ class Transaction {
     }
 
     public String toString() {
+        // https://www.w3schools.com/java/ref_string_format.asp
         return String.format("%s - %s: CA$%,.2f for %s on %s", type, category, amount, name, date);
     }
 }
