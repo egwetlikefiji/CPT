@@ -55,6 +55,15 @@ class RecurringTransaction extends Transaction {
 class FrequentTransaction extends Transaction {
     protected String shortcut;
 
+    /**
+     * adds the values to the shortcut
+     * @param amount
+     * @param name
+     * @param category
+     * @param type
+     * @param date
+     * @param shortcut
+     */
     public FrequentTransaction(double amount, String name, String category, String type, String date, String shortcut) {
         super(amount, name, category, type, date);
 
@@ -68,7 +77,10 @@ class FrequentTransaction extends Transaction {
     public String toString() {
         return super.toString() + String.format(" [Shortcut: %s]", shortcut);
     }
-
+    /**
+     * getter
+     * @return
+     */
     public String getShortcut() {
         return shortcut;
     }
@@ -90,6 +102,10 @@ class Template {
         this.savingsPercentage = savingsPercentage;
     }
 
+    /**
+     * prints out the template based on the values
+     * @param manager
+     */
     public void applyRule(prompts manager) {
         System.out.printf("Template '%s' applied: Wants %.2f%%, Needs %.2f%%, Savings %.2f%%\n",
             templateName, wantsPercentage, needsPercentage, savingsPercentage);
@@ -97,9 +113,9 @@ class Template {
 }
 
 /**
- * prompts class, adds the transaction to the transaction, recurring transaction, and templates arraylist, allowing you to see it later.
- * i would like to make it so that it creates a file, and it writes to that file, then reads it when you run the code so that your 
- * transactions save.
+ * prompts class, adds the transaction to the transaction, recurring transaction, and templates arraylist, allowing you to see it 
+ * later. i would like to make it so that it creates a file, and it writes to that file, then reads it when you run the code so 
+ * that your transactions save.
  */
 class prompts {
     protected List<Transaction> transactions;
@@ -114,24 +130,40 @@ class prompts {
         templates = new ArrayList<>();
     }
 
+    /**
+     * allows the user to add a normal transaction to the transactions array
+     * @param transaction
+     */
     public void addTransaction(Transaction transaction) {
         // add the transactions and send a confirmation
         transactions.add(transaction);
         System.out.println("Transaction added: " + transaction);
     }
 
+    /**
+     * allows the user to add a recurring transaction to the transactions array
+     * @param transaction
+     */
     public void addRecurringTransaction(RecurringTransaction transaction) {
         // add the recurring transactions and send a confirmation
         recurringTransactions.add(transaction);
         System.out.println("Recurring transaction added: " + transaction);
     }
 
+    /**
+     * allows the user to add a frequent transaction to the transactions array
+     * @param transaction
+     */
     public void addFrequentTransaction(FrequentTransaction transaction) {
         // add the shortcut and send a confirmation
         shortcuts.put(transaction.getShortcut(), transaction);
         System.out.println("Frequent transaction added: " + transaction);
     }
 
+    /**
+     * seperates the values stores in the shortcut to apply them.
+     * @param shortcut
+     */
     public void useFrequentTransaction(String shortcut) {
 
         FrequentTransaction ft = shortcuts.get(shortcut);
@@ -150,7 +182,9 @@ class prompts {
             System.out.println("Shortcut not found: " + shortcut);
         }
     }
-
+    /**
+     * prints out all transactions in the transactions array
+     */
     public void viewTransactions() {
         System.out.println("All Transactions:");
         // for every transaction in transaction print it out
@@ -158,7 +192,10 @@ class prompts {
             System.out.println(t);
         }
     }
-
+    /**
+     * adds the template to the templates array
+     * @param template
+     */
     public void applyTemplate(Template template) {
         templates.add(template);
         template.applyRule(this);
