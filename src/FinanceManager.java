@@ -20,7 +20,7 @@ public class FinanceManager {
     }
     /**
      * the main method for the program.
-     * @param args not used
+     * @param args not used1
      */
     public static void main(String[] args) {
         // i used ChatGPT to do this part becuase i know how to do it but it would take up a lot of time and it would
