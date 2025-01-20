@@ -1,11 +1,9 @@
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,19 +11,27 @@ import org.junit.jupiter.api.Test;
 // https://www.tutorialspoint.com/java/java_bytearrayoutputstream.htm
 // https://stackoverflow.com/questions/8751553/how-to-write-a-unit-test
 // https://docs.oracle.com/javase/8/docs/api/java/io/PrintStream.html
+/**
+ * unit tests for the FinanceManager program
+ */
 public class FinanceManagerTest {
     private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     private final PrintStream originalSystemOut = System.out;
     
+    // sets up a test environment so that it doesnt mess with anything
     @BeforeEach
     public void setUp() {
         System.setOut(new PrintStream(outputStream));
     }
 
+    // cleans up the test environment
     @AfterEach
     public void tearDown() {
         System.setOut(originalSystemOut);
     }
+    /**
+     * test adding a one-time transaction
+     */
     @Test
     void testAddTransaction() {
         // set
@@ -36,6 +42,9 @@ public class FinanceManagerTest {
         assertTrue(outputStream.toString().contains("Transaction added: Expense - Housing: CA$4,000.00 for Rent on 2025-01-31"));
     }
 
+    /**
+     * test adding a frequent transactions (shortcut)
+     */
     @Test
     void testAddFrequentTransaction() {
         // set
@@ -46,6 +55,9 @@ public class FinanceManagerTest {
         assertTrue(outputStream.toString().contains("Frequent transaction added: Shortcut 'c1': Expense - Food: CA$6.00 for Coffee"));
     }
 
+    /**
+     * test using a frequent transaction shortcut
+     */
     @Test
     void testUseFrequentTransaction() {
         // set
@@ -59,6 +71,9 @@ public class FinanceManagerTest {
         assertTrue(outputStream.toString().contains("Transaction added: Expense - Food: CA$6.00 for Coffee on 2025-01-19"));
     }
 
+    /**
+     * test viewing transactions
+     */
     @Test
     void testViewTransactions() throws IOException {
         // create files
@@ -84,6 +99,9 @@ public class FinanceManagerTest {
         assertTrue(outputStream.toString().contains("Expense - Food: CA$6.00 for Coffee on 2025-01-19"));
     }
 
+    /**
+     * test clearing all transacations
+     */
     @Test
     void testClearAllTransactions() {
         // set
